@@ -34,13 +34,23 @@
         return $resultado = $sql->fetchAll();
     }
     public function eliminarTarea($id){
-        $conectar = parent::conexion();
-        $sql = "UPDATE tarea SET est = 0, fech_elim=now() WHERE id = ?";
-        $sql = $conectar ->prepare($sql);
-        $sql -> bindValue(1, $id);
-        $sql->execute();
-        return $resultado = $sql->fetchAll();
-    }
+            if (isset($_POST["id"])) {
+                $id = $_POST["id"];
+                // Resto del código para eliminar la tarea
+                $conectar = parent::conexion();
+                $sql = "UPDATE tarea SET est = 0, fecha_elim=now() WHERE id = ?";
+                $sql = $conectar ->prepare($sql);
+                $sql -> bindValue(1, $id);
+                $sql->execute();
+                return $resultado = $sql->fetchAll();
+            } else {
+                echo "El parámetro 'id' no ha sido enviado";
+            }
+     }
+        
+        
+       
+    
     public function registrarTarea($nombre,$descripcion){
         $conectar = parent::conexion();
         $sql = "INSERT INTO `tarea`(`id`, `nombre`, `descripcion`, `fecha_crea`, `fecha_modi`, `fecha_elim`, `est`) VALUES (NULL,'?','?',now(),'','',1)";
@@ -61,4 +71,5 @@
         return $resultado = $sql->fetchAll();
     }
  }
+
 ?>

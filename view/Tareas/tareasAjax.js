@@ -1,16 +1,14 @@
 var tabla;
 
 function init(){
-
+listarTareas();
 }
-document.addEventListener("DOMContentLoaded",function(){
+function listarTareas(){
         const ajax = new XMLHttpRequest();
         ajax.open('POST', '../../controller/tareas.php?opcion=listar',true);
-        var data = new FormData();
-        data.append('accion','buscar');
         ajax.onload = function(){
          let respuesta = ajax.responseText;
-         console.log(respuesta);
+         //console.log(respuesta);
          const data = JSON.parse(respuesta);
          //console.log(data);
          var tabla = document.getElementById('tabla');
@@ -31,10 +29,45 @@ document.addEventListener("DOMContentLoaded",function(){
              console.log('error');
          }
         }
-        ajax.send(data);       
+        ajax.send();       
     
-});
+}
    
+function editar(id){
+    console.log(id);
+
+}
+
+function eliminar(id){
+    console.log(id);
+    swal.fire({
+        title: 'CRUD',
+        text: "Desea Eliminar el Registro?",
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const ajax = new XMLHttpRequest;
+            ajax.open('POST','../../controller/tareas.php?opcion=eliminar',true);
+            const data = new FormData();
+            data.append('id',id);
+            ajax.onload = function() {
+                console.log(ajax.responseText);
+                listarTareas();
+                swal.fire(
+                    'Eliminado!',
+                    'El registro se elimino correctamente.',
+                    'success'
+                )
+            };
+            console.log("id=" + id);
+            ajax.send(data);
+        }
+    });    
+ }          
 
 
 init();

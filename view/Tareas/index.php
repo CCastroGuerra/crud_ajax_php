@@ -17,11 +17,12 @@
             <div class="col-5">
                 <form method="POST" id="formulario">
                     <div class="form-group">
+                        <input type="hidden" name="id" id="id">
                         <label for="my-input">Nombre</label>
                         <input id="nombre" class="form-control" type="text" name="nombre">
                         <label for="my-input">Descripcion</label>
                         <input id="descripcion" class="form-control" type="text" name="descripcion">
-                        <button type="submit" class="btn btn-primary mt-3">AGREGAR</button>
+                        <button id="btnAgregar" type="submit" class="btn btn-primary mt-3">AGREGAR</button>
                     </div>
                 </form>
             </div>
@@ -47,10 +48,11 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="tareasAjax.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
