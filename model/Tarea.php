@@ -53,7 +53,7 @@
     
     public function registrarTarea($nombre,$descripcion){
         $conectar = parent::conexion();
-        $sql = "INSERT INTO `tarea`(`id`, `nombre`, `descripcion`, `fecha_crea`, `fecha_modi`, `fecha_elim`, `est`) VALUES (NULL,'?','?',now(),'','',1)";
+        $sql = "INSERT INTO `tarea`(`id`, `nombre`, `descripcion`, `fecha_crea`, `fecha_modi`, `fecha_elim`, `est`) VALUES (NULL,?,?,now(),'','',1)";
         $sql = $conectar ->prepare($sql);
         $sql -> bindValue(1, $nombre);
         $sql -> bindValue(2, $descripcion);

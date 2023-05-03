@@ -8,6 +8,38 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 
+<div class="container">
+        <div class="modal" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                   <form id="formModal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edtiar Tarea</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <input type="hidden" id="prod_id" name="prod_id">
+                    <div class="form-group">
+                        <label class="form-label" for="prod_nom">Nombre</label>
+                        <input type="text" class="form-control" id="prod_nom" name="prod_nom" placeholder="Ingrese Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="prod_desc">Descripcion</label>
+                        <textarea type="text" rows="3" class="form-control" id="prod_desc" name="prod_desc" placeholder="Ingrese Descripcion" required></textarea>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                 </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 <body>
     <h3 class="text-center mb-3">
         LISTA DE TAREAS
@@ -47,6 +79,9 @@
 
             </div>
         </div>
+
+        
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="tareasAjax.js"></script>
