@@ -24,8 +24,10 @@ function listarTareas() {
                  <td>${valor.id}</td>
                  <td>${valor.nombre}</td>
                  <td>${valor.descripcion}</td>
-                 <td><button type="button" onClick = "editar(${valor.id})"  class="btn btn-info" data-coreui-toggle="modal" data-coreui-target="#exampleModal" id = "${valor.id}">Editar</button></td>
-                 <td><button type="button" onClick = "eliminar(${valor.id})"  class="btn btn-danger" data-coreui-toggle="modal" data-coreui-target="#exampleModal" id = "${valor.id}">Eliminar</button></td>
+                 <td>  <button type="button" onClick = "editar(${valor.id})"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id = "${valor.id}">
+                 Editar
+                 </button></td>
+                 <td><button type="button" onClick = "eliminar(${valor.id})"  class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" id = "${valor.id}">Eliminar</button></td>
                
                  `;
       }
@@ -37,6 +39,7 @@ function listarTareas() {
 }
 
 function editar(id) {
+  console.log(id);
     const ajax = new XMLHttpRequest();
     ajax.open("POST", "../../controller/tareas.php?opcion=mostrar", true);
     const data = new FormData();
