@@ -60,16 +60,22 @@
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-    public function actualizarTarea($id,$nombre,$descripcion){
-        $conectar = parent::conexion();
-        $sql = "UPDATE tarea SET nombre = ?,descripcion = ?, fech_modi=now() WHERE id = ?";
-        $sql = $conectar ->prepare($sql);
-        $sql -> bindValue(1, $nombre);
-        $sql -> bindValue(2, $descripcion);
-        $sql -> bindValue(3, $id);
-        $sql->execute();
-        return $resultado = $sql->fetchAll();
+    public function actualizarTarea($id, $nombre, $descripcion) {
+        try {
+            $conectar = parent::conexion();
+            $sql = "UPDATE tarea SET nombre = ?, descripcion = ?, fecha_modi = now() WHERE id = ?";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $nombre);
+            $sql->bindValue(2, $descripcion);
+            $sql->bindValue(3, $id);
+            $sql->execute();
+            return $resultado = $sql->fetchAll();
+        } catch (PDOException $e) {
+            throw new Exception("Error al actualizar la tarea: " . $e->getMessage());
+        }
     }
+    
+    
  }
 
 ?>

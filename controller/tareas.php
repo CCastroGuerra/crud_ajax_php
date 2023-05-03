@@ -36,6 +36,7 @@ switch($_GET["opcion"]){
             break;
     case "actualizar":
         $tarea ->actualizarTarea($_POST["id"],$_POST["nombre"],$_POST["descripcion"]);
+        echo "actualizado correctamente";
         break;
 }
 
