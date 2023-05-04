@@ -1,53 +1,70 @@
-var tabla;
 
 function init() {
   var formulario = document.getElementById("formulario");
   formulario.onsubmit = function (e) {
     guardarTarea(e);
   };
-  listarTareas();
 }
-function listarTareas() {
-  const ajax = new XMLHttpRequest();
-  ajax.open("POST", "../../controller/tareas.php?opcion=listar", true);
-  ajax.onload = function () {
-    let respuesta = ajax.responseText;
-    //console.log(respuesta);
-    const data = JSON.parse(respuesta);
-    //console.log(data);
-    var tabla = document.getElementById("tabla");
-    tabla.innerHTML = "";
-    if (data.length > 0) {
-      for (let valor of data) {
-        tabla.innerHTML += `
-                 <tr>
-                 <td>${valor.id}</td>
-                 <td>${valor.nombre}</td>
-                 <td>${valor.descripcion}</td>
-                 <td>  <button type="button" onClick = "mostrarEnModal(${valor.id})"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id = "${valor.id}">
-                 Editar
-                 </button></td>
-                 <td><button type="button" onClick = "eliminar(${valor.id})"  class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" id = "${valor.id}">Eliminar</button></td>
-               
-                 `;
+
+/*********************/
+// Función para inicializar el DataTable
+function inicializarTabla() {
+  const tabla = document.getElementById('tablaTareas');
+  const dataTable = new DataTable(tabla, {
+    columns: [
+      { title: "ID", data: "id" },
+      { title: "Nombre", data: "nombre" },
+      { title: "Descripción", data: "descripcion" },
+      {
+        data: "id",
+        render: function(data, type, row) {
+          return `<td><button type="button" onClick="mostrarEnModal(${data})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="${data}">Editar</button></td>`;
+        }
+      },
+      {
+        data: "id",
+        render: function(data, type, row) {
+          return `<td><button type="button" onClick="eliminar(${data})" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" id="${data}">Eliminar</button></td>`;
+        }
       }
-    } else {
-      console.log("error");
+    ],
+  });
+  return dataTable;
+}
+
+// Función para cargar los datos desde la base de datos
+function cargarDatos() {
+  const url = "../../controller/tareas.php?opcion=listar";
+  const ajax = new XMLHttpRequest();
+  ajax.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      const datos = JSON.parse(this.responseText);
+      dataTable.clear().rows.add(datos).draw();
     }
   };
+  ajax.open("GET", url, true);
   ajax.send();
 }
 
-// let fromModal = document.getElementById("formularioModal");
-// function actualizar() {
-//     const ajax = new XMLHttpRequest();
-//     ajax.open("POST", "../../controller/tareas.php?opcion=actualizar", true);
-//     const data = new FormData(fromModal);
-//     ajax.onload = function () {
-//         console.log(ajax.responseText);
-//   };
-//   ajax.send(data);
-//   }
+// Llamamos a la función para inicializar el DataTable
+const dataTable = inicializarTabla();
+
+// Llamamos a la función para cargar los datos desde la base de datos
+cargarDatos();
+
+/********************/
+
+let fromModal = document.getElementById("formularioModal");
+function actualizar() {
+  const ajax = new XMLHttpRequest();
+  ajax.open("POST", "../../controller/tareas.php?opcion=actualizar", true);
+  const data = new FormData(fromModal);
+  ajax.onload = function () {
+    console.log(ajax.responseText);
+  };
+  ajax.send(data);
+}
+
 
 function eliminar(id) {
   console.log(id);
@@ -69,7 +86,9 @@ function eliminar(id) {
         data.append("id", id);
         ajax.onload = function () {
           console.log(ajax.responseText);
-          listarTareas();
+          //cargarTabla();
+          //listarTareas();
+          cargarDatos();
           swal.fire(
             "Eliminado!",
             "El registro se elimino correctamente.",
@@ -89,7 +108,7 @@ function guardarTarea(e) {
   ajax.open("POST", "../../controller/tareas.php?opcion=guardar", true);
   ajax.onload = function () {
     console.log(ajax.responseText);
-    listarTareas();
+    cargarDatos();
     swal.fire("Registrado!", "Registrado correctamente.", "success");
   };
   formulario.reset();
@@ -119,14 +138,18 @@ function actualizar(id) {
     .then((result) => {
       if (result.isConfirmed) {
         const ajax = new XMLHttpRequest();
-        ajax.open("POST","../../controller/tareas.php?opcion=actualizar",true);
+        ajax.open(
+          "POST",
+          "../../controller/tareas.php?opcion=actualizar",
+          true
+        );
         const data = new FormData();
         data.append("id", id);
         data.append("nombre", nombre);
         data.append("descripcion", descripcion);
         ajax.onload = function () {
           console.log(ajax.responseText);
-          listarTareas();
+          cargarDatos();
           swal.fire(
             "Actualizado!",
             "El registro se actualizó correctamente.",

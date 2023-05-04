@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>App de tareas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/estilos.css"> -->
+    <!-- Buttons DataTables -->
+    <!-- <link rel="stylesheet" href="../../css/buttons.bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/font-awesome.min.css"> -->
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
+
+
+
 </head>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,7 +76,7 @@
             </div>
             <p id="mensaje"></p>
             <div class="col-7">
-                <table class="table">
+                <table class="table display responsive nowrap" id="tablaTareas">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -72,7 +86,7 @@
                             <th></th>
 
                         </tr>
-                    <tbody class="table-groud-divider" id="tabla">
+                    <tbody>
 
                     </tbody>
 
@@ -86,10 +100,18 @@
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="tareasAjax.js"></script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+  
+    <script src="tareasAjax.js"></script>
+
+   
 </body>
 
 </html>
